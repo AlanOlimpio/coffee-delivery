@@ -1,5 +1,5 @@
 import { ButtonInterfaceProps } from './ButtonInterface';
-import { ButtonContainer } from './ButtonStyleds';
+import { ButtonContainer } from './ButtonStyled';
 
 function Button({
   $textColor,
