@@ -1,7 +1,65 @@
+import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react';
+import Banner from '../../components/Banner';
+import coffeeDeliveryBannerBackground from '../../assets/coffeeDeliveryBannerBackground.png';
+import Disclaimer from '../../components/Disclaimer';
+import { defaultTheme } from '../../styles/themes/default';
 import * as Styled from './HomeStyled';
 
 function Home() {
-  return <Styled.Wrapper>Home</Styled.Wrapper>;
+  return (
+    <Styled.Wrapper>
+      <Banner
+        title="Encontre o café perfeito para qualquer hora do dia"
+        subTitle="Com o Coffee Delivery você recebe seu café onde estiver, a qualquer hora"
+        $backgroundImage={coffeeDeliveryBannerBackground}
+      >
+        <Disclaimer
+          title="Compra simples e segura"
+          icon={
+            <ShoppingCart
+              color={defaultTheme.font.color['white']}
+              size={16}
+              weight="fill"
+            />
+          }
+          $backgroundColor="yellow-dark"
+        />
+        <Disclaimer
+          title="Embalagem mantém o café intacto"
+          icon={
+            <Package
+              color={defaultTheme.font.color['white']}
+              size={16}
+              weight="fill"
+            />
+          }
+          $backgroundColor="base-text"
+        />
+        <Disclaimer
+          title="Entrega rápida e rastreada"
+          icon={
+            <Timer
+              color={defaultTheme.font.color['white']}
+              size={16}
+              weight="fill"
+            />
+          }
+          $backgroundColor="yellow"
+        />
+        <Disclaimer
+          title="O café chega fresquinho até você "
+          icon={
+            <Coffee
+              color={defaultTheme.font.color['white']}
+              size={16}
+              weight="fill"
+            />
+          }
+          $backgroundColor="purple"
+        />
+      </Banner>
+    </Styled.Wrapper>
+  );
 }
 
 export default Home;
