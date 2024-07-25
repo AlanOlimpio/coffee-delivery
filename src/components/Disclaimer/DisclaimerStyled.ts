@@ -9,7 +9,6 @@ export const ContainerDisclaimer = styled.div<DisclaimerInterfaceProps>`
   grid-template-columns: 2rem 1fr;
 
   span {
-    background-color: #4b2995;
     width: 2rem;
     height: 2rem;
     margin: 0 auto;
