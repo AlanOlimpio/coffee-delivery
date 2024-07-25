@@ -35,8 +35,8 @@ function Counter() {
       <InputCounter
         ref={counterRef}
         type="number"
-        defaultValue={1}
-        min={1}
+        defaultValue={0}
+        min={0}
         max={20}
       />
       <ButtonCounter

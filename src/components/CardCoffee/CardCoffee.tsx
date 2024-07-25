@@ -5,25 +5,35 @@ import {
   WrapperCard,
   WrapperTag,
 } from './CardCoffeeStyled';
-import cardCoffeeImage from '../../assets/CardCoffee/coffee-1.png';
+
 import Button from '../Button';
 import { ShoppingCartSimple } from 'phosphor-react';
 import { defaultTheme } from '../../styles/themes/default';
 import Counter from '../Counter';
+import { ProductInterfaceProps } from '../../interfaces/Product';
 
-function CardCoffee() {
+function CardCoffee({
+  id,
+  image,
+  label,
+  name,
+  price,
+  tags,
+}: ProductInterfaceProps) {
   return (
     <WrapperCard>
-      <ImageCard src={cardCoffeeImage} alt="Expresso Tradicional" />
+      <ImageCard src={image} alt={`imagem de ${name}`} />
       <WrapperTag>
-        <TagInfo label="Tradicional" />
+        {tags.map((tag) => {
+          return <TagInfo key={`${id}-${tag.label}`} label={tag.label} />;
+        })}
       </WrapperTag>
 
-      <h2>Expresso Tradicional</h2>
-      <p>O tradicional café feito com água quente e grãos moídos</p>
+      <h2>{name}</h2>
+      <p>{label}</p>
       <WrapperActions>
         <p>
-          <span>R$</span> 9,90
+          <span>R$</span> {price}
         </p>
         <div>
           <Counter />

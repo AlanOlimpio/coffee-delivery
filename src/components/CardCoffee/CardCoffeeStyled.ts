@@ -5,7 +5,7 @@ export const WrapperCard = styled.div`
     width: 16rem;
     max-width: 100%;
     min-height: 20rem;
-    margin: 0 auto;
+    margin: 1.25rem 0 0;
     padding: 7.625rem 1.25rem 1.25rem;
     background-color: ${theme.font.color['base-card']};
     border: 0;

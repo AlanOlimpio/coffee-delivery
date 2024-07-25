@@ -3,11 +3,14 @@ import Banner from '../../components/Banner';
 import coffeeDeliveryBannerBackground from '../../assets/coffeeDeliveryBannerBackground.png';
 import Disclaimer from '../../components/Disclaimer';
 import { defaultTheme } from '../../styles/themes/default';
-import * as Styled from './HomeStyled';
+import { TitleSection, Wrapper, WrapperProducts } from './HomeStyled';
+import CardCoffee from '../../components/CardCoffee';
+import { LayoutContainer } from '../../layouts/DefaultLayoutStyled';
+import { productList } from '../../mocks/ProductList';
 
 function Home() {
   return (
-    <Styled.Wrapper>
+    <Wrapper>
       <Banner
         title="Encontre o café perfeito para qualquer hora do dia"
         subTitle="Com o Coffee Delivery você recebe seu café onde estiver, a qualquer hora"
@@ -58,7 +61,15 @@ function Home() {
           $backgroundColor="purple"
         />
       </Banner>
-    </Styled.Wrapper>
+      <LayoutContainer>
+        <TitleSection>Nossos cafés</TitleSection>
+        <WrapperProducts>
+          {productList.map((product) => (
+            <CardCoffee {...product} key={product.id} />
+          ))}
+        </WrapperProducts>
+      </LayoutContainer>
+    </Wrapper>
   );
 }
 
