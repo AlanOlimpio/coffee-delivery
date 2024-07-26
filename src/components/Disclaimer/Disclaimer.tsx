@@ -3,16 +3,23 @@ import { ContainerDisclaimer } from './DisclaimerStyled';
 
 function Disclaimer({
   title,
-  subtitle,
+  $subtitle,
   icon,
   $backgroundColor,
+  $gap,
+  $alignItems,
 }: DisclaimerInterfaceProps) {
   return (
-    <ContainerDisclaimer $backgroundColor={$backgroundColor}>
+    <ContainerDisclaimer
+      $backgroundColor={$backgroundColor}
+      $subtitle={$subtitle}
+      $gap={$gap}
+      $alignItems={$alignItems}
+    >
       <span>{icon}</span>
       <ul>
         <li>{title}</li>
-        <li>{subtitle}</li>
+        <li>{$subtitle}</li>
       </ul>
     </ContainerDisclaimer>
   );
