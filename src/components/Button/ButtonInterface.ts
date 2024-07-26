@@ -21,6 +21,7 @@ type GapButton =
   | '1rem';
 
 type TextTransformButton = 'capitalize' | 'uppercase' | 'lowercase';
+type DisplayButton = 'flex' | 'block' | 'inline-block';
 
 export interface ButtonInterfaceProps {
   text?: string;
@@ -34,6 +35,8 @@ export interface ButtonInterfaceProps {
   children?: ReactNode;
   $weight?: WeightButton;
   $textTransform?: TextTransformButton;
+  $display?: DisplayButton;
+  onClick?: () => void;
 }
 
 export interface ButtonContainerInterfaceProps

@@ -12,6 +12,9 @@ function Button({
   $weight,
   $hoverBackgroundColor,
   $hoverTextColor,
+  $textTransform,
+  $display,
+  onClick,
 }: ButtonInterfaceProps) {
   return (
     <ButtonContainer
@@ -23,6 +26,9 @@ function Button({
       $weight={$weight}
       $hoverBackgroundColor={$hoverBackgroundColor}
       $hoverTextColor={$hoverTextColor}
+      $textTransform={$textTransform}
+      $display={$display}
+      onClick={onClick}
     >
       {children}
       {text}

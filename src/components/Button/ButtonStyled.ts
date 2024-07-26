@@ -12,10 +12,16 @@ export const ButtonContainer = styled.button<ButtonContainerInterfaceProps>`
     $textTransform,
     $hoverBackgroundColor,
     $hoverTextColor,
+    $display,
   }) => css`
-    display: flex;
+    display: ${$display ? $display : 'flex'};
+    text-align: ${$display === 'block' ? 'center' : 'left'};
+    ${$display === 'block' &&
+    css`
+      width: 100%;
+    `}
     align-items: center;
-    text-align: left;
+
     ${$backgroundColor &&
     css`
       background-color: ${COLORBUTTON[$backgroundColor]};
