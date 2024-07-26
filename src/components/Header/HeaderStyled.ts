@@ -7,6 +7,9 @@ export const HeaderContainer = styled.header`
   justify-content: space-between;
   padding: 2rem 0;
   flex-wrap: wrap;
+  > img {
+    cursor: pointer;
+  }
 `;
 
 export const HeaderwrapperRight = styled.header`

@@ -5,12 +5,20 @@ import Button from '../Button';
 import { defaultTheme } from '../../styles/themes/default';
 import Location from '../Location';
 import { LayoutContainer } from '../../layouts/DefaultLayoutStyled';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+  const navigate = useNavigate();
   return (
     <LayoutContainer>
       <HeaderContainer>
-        <img src={coffeeDeliveryLogo} alt="Coffee Delivery" />
+        <img
+          src={coffeeDeliveryLogo}
+          alt="Coffee Delivery"
+          onClick={() => {
+            navigate('/');
+          }}
+        />
         <HeaderwrapperRight>
           <Location />
           <Button
@@ -18,6 +26,9 @@ function Header() {
             $backgroundColor="yellow-light"
             $paddingY="0.5rem"
             $paddingX="0.5rem"
+            onClick={() => {
+              navigate('/checkout');
+            }}
           >
             <ShoppingCart
               color={defaultTheme.font.color['yellow-dark']}
