@@ -4,6 +4,8 @@ export const WrapperCard = styled.div`
   ${({ theme }) => css`
     width: 16rem;
     max-width: 100%;
+    display: flex;
+    flex-direction: column;
     min-height: 20rem;
     margin: 1.25rem 0 0;
     padding: 7.625rem 1.25rem 1.25rem;

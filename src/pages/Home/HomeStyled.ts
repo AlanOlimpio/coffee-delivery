@@ -15,24 +15,21 @@ export const TitleSection = styled.h2`
   `}
 `;
 export const WrapperProducts = styled.div`
-  display: flex;
-  margin-top: 3.375rem;
-  row-gap: 2.5rem;
+
+  display: grid;
   column-gap: 2rem;
-  flex-wrap: wrap;
+  row-gap: 2.5rem;
+  margin-top: 3.375rem;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, auto));
   justify-content: space-between;
-  @media screen and (max-width: 576px) {
-    justify-content: center;
-    > div {
-      flex-grow: 1;
-      flex-basis: auto;
-    }
+
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    justify-content: space-between;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, auto));
   }
 
-  @media screen and (min-width: 577px) {
-    &:after {
-      content: '';
-      flex: auto;
-    }
-  }
+  @media screen and (max-width: 767px)  {
+  margin-top: 2.375rem;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, auto));
+  justify-content: center;
 `;
