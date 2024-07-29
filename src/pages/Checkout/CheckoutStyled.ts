@@ -3,7 +3,7 @@ export const WrapperCheckout = styled.main`
   padding-top: 2.5rem;
   padding-bottom: 3rem;
   display: grid;
-  grid-template-columns: auto 28rem;
+  grid-template-columns: minmax(min-content, 40rem) minmax(min-content, 28rem);
   column-gap: 2rem;
   @media screen and (max-width: 768px) {
     grid-template-columns: 1fr;

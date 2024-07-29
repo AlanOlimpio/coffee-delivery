@@ -10,6 +10,7 @@ import {
   WrapperPayment,
 } from './CheckoutStyled';
 import { defaultTheme } from '../../styles/themes/default';
+import Address from './components/Address';
 
 function Checkout() {
   return (
@@ -17,7 +18,7 @@ function Checkout() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          console.log(e.target);
+          console.log(e.target.cep.value);
         }}
       >
         <WrapperCheckout>
@@ -37,6 +38,7 @@ function Checkout() {
                 $gap="0.5rem"
                 $alignItems="start"
               />
+              <Address />
             </WrapperAddress>
             <WrapperPayment>
               <Disclaimer
@@ -44,7 +46,7 @@ function Checkout() {
                 $subtitle="O pagamento é feito na entrega. Escolha a forma que deseja pagar"
                 icon={
                   <CurrencyDollar
-                    color={defaultTheme.font.color['purple-dark']}
+                    color={defaultTheme.font.color['purple']}
                     size={22}
                     weight="light"
                   />
