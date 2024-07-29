@@ -11,6 +11,7 @@ import {
 } from './CheckoutStyled';
 import { defaultTheme } from '../../styles/themes/default';
 import Address from './components/Address';
+import Payment from './components/ Payment';
 
 function Checkout() {
   return (
@@ -18,7 +19,7 @@ function Checkout() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          console.log(e.target.cep.value);
+          console.log(e.target.payment.value);
         }}
       >
         <WrapperCheckout>
@@ -54,6 +55,7 @@ function Checkout() {
                 $gap="0.5rem"
                 $alignItems="start"
               />
+              <Payment />
             </WrapperPayment>
           </div>
           <div>
