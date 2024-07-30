@@ -26,7 +26,7 @@ function Header() {
             $backgroundColor="yellow-light"
             $paddingY="0.5rem"
             $paddingX="0.5rem"
-            onClick={() => {
+            $onClick={() => {
               navigate('/checkout');
             }}
           >

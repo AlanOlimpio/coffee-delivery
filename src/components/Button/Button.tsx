@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react';
 import { ButtonInterfaceProps } from './ButtonInterface';
 import { ButtonContainer } from './ButtonStyled';
 
@@ -14,8 +15,12 @@ function Button({
   $hoverTextColor,
   $textTransform,
   $display,
-  onClick,
+  $fontSize,
+  $onClick,
 }: ButtonInterfaceProps) {
+  function handleOnclick(event: MouseEvent<HTMLButtonElement>) {
+    $onClick?.(event);
+  }
   return (
     <ButtonContainer
       $gap={$gap}
@@ -28,7 +33,8 @@ function Button({
       $hoverTextColor={$hoverTextColor}
       $textTransform={$textTransform}
       $display={$display}
-      onClick={onClick}
+      onClick={(event) => handleOnclick(event)}
+      $fontSize={$fontSize}
     >
       {children}
       {text}

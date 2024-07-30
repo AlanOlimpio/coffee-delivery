@@ -33,7 +33,8 @@ function CardCoffee({
       <p>{label}</p>
       <WrapperActions>
         <p>
-          <span>R$</span> {price}
+          <span>R$</span>
+          {price.toLocaleString('pt-br', { minimumFractionDigits: 2 })}
         </p>
         <div>
           <Counter />

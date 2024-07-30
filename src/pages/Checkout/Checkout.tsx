@@ -8,10 +8,13 @@ import {
   WrapperAddress,
   WrapperAside,
   WrapperPayment,
+  WrapperAmount,
 } from './CheckoutStyled';
 import { defaultTheme } from '../../styles/themes/default';
 import Address from './components/Address';
 import Payment from './components/ Payment';
+import SelectedProduct from '../../components/ SelectedProduct';
+import { productList } from '../../mocks/ProductList';
 
 function Checkout() {
   return (
@@ -61,6 +64,29 @@ function Checkout() {
           <div>
             <TitleSection>Cafés selecionados</TitleSection>
             <WrapperAside>
+              {productList.map((product) => {
+                if (product.id === 'produto-1') {
+                  return <SelectedProduct {...product} key={product.id} />;
+                }
+                if (product.id === 'produto-6') {
+                  return <SelectedProduct {...product} key={product.id} />;
+                }
+              })}
+              <WrapperAmount>
+                <div>
+                  <p>Total de itens</p>
+                  <p>R$ 29,70</p>
+                </div>
+                <div>
+                  <p>Entrega</p>
+                  <p>R$ 3,50</p>
+                </div>
+                <div>
+                  <h3>Total</h3>
+                  <h3>R$ 33,20</h3>
+                </div>
+              </WrapperAmount>
+
               <Button
                 $gap="0.25rem"
                 $backgroundColor="yellow"

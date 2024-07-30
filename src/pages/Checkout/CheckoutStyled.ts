@@ -47,6 +47,8 @@ export const WrapperPayment = styled.div`
 
 export const WrapperAside = styled.aside`
   ${({ theme }) => css`
+    display: grid;
+    gap: 1.5rem;
     background-color: ${theme.font.color['base-card']};
     border: none;
     border-radius: 0.375rem 2.5rem 0.375rem 2.5rem;
@@ -54,6 +56,25 @@ export const WrapperAside = styled.aside`
     @media screen and (max-width: 768px) {
       border-radius: 0.375rem;
       padding: 1.5rem;
+    }
+  `}
+`;
+
+export const WrapperAmount = styled.div`
+  ${({ theme }) => css`
+    display: grid;
+    gap: 0.75rem;
+    > div {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.75rem;
+      p {
+        font-size: ${theme.font.size.text.s};
+      }
+      h3 {
+        font-size: ${theme.font.size.text.l};
+      }
     }
   `}
 `;

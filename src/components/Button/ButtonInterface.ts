@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { MouseEvent, ReactNode } from 'react';
 import { defaultTheme } from '../../styles/themes/default';
 
 export const COLORBUTTON = defaultTheme.font.color;
@@ -26,6 +26,7 @@ type DisplayButton = 'flex' | 'block' | 'inline-block';
 export interface ButtonInterfaceProps {
   text?: string;
   $textColor?: keyof typeof COLORBUTTON;
+  $fontSize?: string;
   $backgroundColor?: keyof typeof COLORBUTTON;
   $hoverTextColor?: keyof typeof COLORBUTTON;
   $hoverBackgroundColor?: keyof typeof COLORBUTTON;
@@ -36,7 +37,7 @@ export interface ButtonInterfaceProps {
   $weight?: WeightButton;
   $textTransform?: TextTransformButton;
   $display?: DisplayButton;
-  onClick?: () => void;
+  $onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export interface ButtonContainerInterfaceProps

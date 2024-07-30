@@ -13,6 +13,7 @@ export const ButtonContainer = styled.button<ButtonContainerInterfaceProps>`
     $hoverBackgroundColor,
     $hoverTextColor,
     $display,
+    $fontSize,
   }) => css`
     display: ${$display ? $display : 'flex'};
     text-align: ${$display === 'block' ? 'center' : 'left'};
@@ -32,9 +33,9 @@ export const ButtonContainer = styled.button<ButtonContainerInterfaceProps>`
     `}
 
     border: 0;
-    border-radius: 0.5rem;
+    border-radius: 0.375rem;
     cursor: pointer;
-    font-size: 0.875rem;
+    font-size: ${$fontSize ? $fontSize : '0.875rem'};
     ${$textTransform &&
     css`
       text-transform: ${$textTransform};
