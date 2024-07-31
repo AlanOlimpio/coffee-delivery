@@ -24,7 +24,7 @@ export const defaultTheme = {
       title: {
         xl: '3rem',
         l: '2rem',
-        m: 'rem',
+        m: '1.5rem',
         s: '1.25rem',
         xs: '1.125rem',
       },
