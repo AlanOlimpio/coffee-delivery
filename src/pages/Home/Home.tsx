@@ -6,9 +6,11 @@ import { defaultTheme } from '../../styles/themes/default';
 import { TitleSection, Wrapper, WrapperProducts } from './HomeStyled';
 import CardCoffee from '../../components/CardCoffee';
 import { LayoutContainer } from '../../layouts/DefaultLayoutStyled';
-import { productList } from '../../mocks/ProductList';
+import { useContext } from 'react';
+import { CoffeeContext } from '../../contexts/CoffeeContext';
 
 function Home() {
+  const { coffeeList } = useContext(CoffeeContext);
   return (
     <Wrapper>
       <Banner
@@ -64,7 +66,7 @@ function Home() {
       <LayoutContainer>
         <TitleSection>Nossos cafés</TitleSection>
         <WrapperProducts>
-          {productList.map((product) => (
+          {coffeeList.map((product) => (
             <CardCoffee {...product} key={product.id} />
           ))}
         </WrapperProducts>

@@ -8,8 +8,18 @@ import { Trash } from 'phosphor-react';
 import { defaultTheme } from '../../styles/themes/default';
 import Counter from '../Counter';
 import { ProductInterfaceProps } from '../../interfaces/Product';
+import { useContext, useState } from 'react';
+import { CoffeeContext } from '../../contexts/CoffeeContext';
 
-function SelectedProduct({ image, name, price }: ProductInterfaceProps) {
+function SelectedProduct({
+  id,
+  image,
+  name,
+  price,
+  amount,
+}: ProductInterfaceProps) {
+  const { removeProductCart } = useContext(CoffeeContext);
+  const [amountProduct, setAmountProduct] = useState(amount);
   return (
     <WrapperSelectedProduct>
       <div>
@@ -17,7 +27,12 @@ function SelectedProduct({ image, name, price }: ProductInterfaceProps) {
         <WrapperActions>
           <h2>{name}</h2>
           <div>
-            <Counter />
+            <Counter
+              onClickCounter={(amountCount) => setAmountProduct(amountCount)}
+              amount={amountProduct}
+              idProdutct={id}
+              cartUpdate={true}
+            />
             <Button
               $gap="0.25rem"
               $backgroundColor="base-button"
@@ -28,10 +43,7 @@ function SelectedProduct({ image, name, price }: ProductInterfaceProps) {
               $paddingX="0.5rem"
               $fontSize="0.75rem"
               $textTransform="uppercase"
-              $onClick={(e) => {
-                e.preventDefault();
-                console.log(e);
-              }}
+              $onClick={() => removeProductCart(id)}
             >
               <Trash color={defaultTheme.font.color['purple']} size={16} />
               Remover

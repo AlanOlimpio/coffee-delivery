@@ -1,10 +1,23 @@
 import { Minus, Plus } from 'phosphor-react';
 import { InputCounter, ButtonCounter, WrapperCounter } from './CounterStyled';
 import { defaultTheme } from '../../styles/themes/default';
-import { MouseEvent, useRef } from 'react';
+import { MouseEvent, useContext, useRef } from 'react';
+import { CoffeeContext } from '../../contexts/CoffeeContext';
 
-function Counter() {
+interface CounterInterfaceProps {
+  onClickCounter: (amountCount: number) => void;
+  amount: number;
+  cartUpdate: boolean;
+  idProdutct: string;
+}
+function Counter({
+  onClickCounter,
+  amount,
+  idProdutct,
+  cartUpdate,
+}: CounterInterfaceProps) {
   const counterRef = useRef<HTMLInputElement>(null);
+  const { updateProductCart } = useContext(CoffeeContext);
 
   function upCounter(
     event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
@@ -12,6 +25,10 @@ function Counter() {
     event.preventDefault();
     if (counterRef?.current) {
       counterRef.current.stepUp();
+      onClickCounter(parseInt(counterRef.current.value));
+      if (cartUpdate) {
+        updateProductCart(idProdutct, parseInt(counterRef.current.value));
+      }
     }
   }
 
@@ -21,8 +38,13 @@ function Counter() {
     event.preventDefault();
     if (counterRef?.current) {
       counterRef.current.stepDown();
+      onClickCounter(parseInt(counterRef.current.value));
+      if (cartUpdate) {
+        updateProductCart(idProdutct, parseInt(counterRef.current.value));
+      }
     }
   }
+
   return (
     <WrapperCounter>
       <ButtonCounter
@@ -35,7 +57,7 @@ function Counter() {
       <InputCounter
         ref={counterRef}
         type="number"
-        defaultValue={0}
+        defaultValue={amount}
         min={0}
         max={20}
       />
