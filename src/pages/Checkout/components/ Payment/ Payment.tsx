@@ -1,7 +1,7 @@
-import { ChangeEvent, useState } from 'react';
 import { OptionsPayment, Wrapper } from './ PaymentStyled';
 import { Bank, CreditCard, Money } from 'phosphor-react';
 import { defaultTheme } from '../../../../styles/themes/default';
+import { useFormContext } from 'react-hook-form';
 
 export const options = [
   {
@@ -22,24 +22,19 @@ export const options = [
 ];
 
 function Payment() {
-  const [valueSelected, setValueSelected] = useState('');
+  const { register } = useFormContext();
 
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    setValueSelected(event.target.value);
-  }
   return (
     <Wrapper>
       {options.map((item) => {
         return (
           <OptionsPayment key={item.id} htmlFor={item.id}>
             <input
-              name="payment"
               id={item.id}
               type="radio"
               value={item.id}
-              checked={valueSelected === item.id}
-              onChange={(e) => handleChange(e)}
               required
+              {...register('payment')}
             />
             {item.icon === 'creditCard' && (
               <CreditCard size={16} color={defaultTheme.font.color['purple']} />

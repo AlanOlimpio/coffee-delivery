@@ -1,3 +1,4 @@
+import { useFormContext } from 'react-hook-form';
 import {
   InputComplementLabel,
   ThreeCol,
@@ -6,23 +7,57 @@ import {
 } from './AddressStyled';
 
 function Address() {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
   return (
     <Wrapper>
       <TwoCol>
-        <input name="cep" placeholder="CEP" defaultValue="" required />
+        <input
+          placeholder="CEP"
+          defaultValue=""
+          required
+          {...register('cep')}
+        />
+        {errors.cep?.message && <p>{errors.cep?.message}</p>}
       </TwoCol>
-      <input name="address" placeholder="Rua" defaultValue="" required />
+      <input
+        placeholder="Rua"
+        defaultValue=""
+        required
+        {...register('address')}
+      />
       <TwoCol>
-        <input name="number" placeholder="Número" defaultValue="" required />
+        <input
+          placeholder="Número"
+          defaultValue=""
+          required
+          {...register('number')}
+        />
         <InputComplementLabel>
           <span>Opcional</span>
-          <input name="complement" placeholder="Complemento" defaultValue="" />
+          <input
+            placeholder="Complemento"
+            defaultValue=""
+            {...register('complement')}
+          />
         </InputComplementLabel>
       </TwoCol>
       <ThreeCol>
-        <input name="downtown" placeholder="Bairro" defaultValue="" required />
-        <input name="city" placeholder="Cidade" defaultValue="" required />
-        <input name="uf" placeholder="UF" defaultValue="" required />
+        <input
+          placeholder="Bairro"
+          defaultValue=""
+          required
+          {...register('downtown')}
+        />
+        <input
+          placeholder="Cidade"
+          defaultValue=""
+          required
+          {...register('city')}
+        />
+        <input placeholder="UF" defaultValue="" required {...register('uf')} />
       </ThreeCol>
     </Wrapper>
   );

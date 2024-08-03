@@ -1,4 +1,6 @@
 import { CurrencyDollar, MapPinLine, ShoppingCart } from 'phosphor-react';
+import { FormProvider, useForm } from 'react-hook-form';
+import * as zod from 'zod';
 import Button from '../../components/Button';
 import Disclaimer from '../../components/Disclaimer';
 import { LayoutContainer } from '../../layouts/DefaultLayoutStyled';
@@ -17,12 +19,57 @@ import SelectedProduct from '../../components/ SelectedProduct';
 import { useNavigate } from 'react-router-dom';
 import { CoffeeContext } from '../../contexts/CoffeeContext';
 import { useContext, useEffect, useState } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+const formValidationSchema = zod.object({
+  cep: zod.string().regex(/^\d{5}-\d{3}$/i, 'Informe um CEP válido!'),
+  city: zod.string().min(1),
+  downtown: zod.string().min(1),
+  address: zod.string().min(1),
+  number: zod.string().min(1),
+  complement: zod.string(),
+  payment: zod.string().min(1),
+  uf: zod.string().min(2).max(2),
+});
+
+export type formValidationSchemaData = zod.infer<typeof formValidationSchema>;
 
 function Checkout() {
   const navigate = useNavigate();
   const { cartList } = useContext(CoffeeContext);
   const [sum, setSum] = useState(0);
   const deliveryValue = 3.5;
+  const newPaymentForm = useForm<formValidationSchemaData>({
+    resolver: zodResolver(formValidationSchema),
+    defaultValues: {
+      cep: '',
+      city: '',
+      downtown: '',
+      address: '',
+      number: '',
+      complement: '',
+      payment: '',
+      uf: '',
+    },
+  });
+
+  const { handleSubmit, reset } = newPaymentForm;
+
+  function handleFormCheckout(data: formValidationSchemaData) {
+    console.log(data);
+    reset();
+  }
+
+  function handleToLocaleString(total: number, delivery?: number) {
+    if (delivery) {
+      return (total + delivery).toLocaleString('pt-br', {
+        minimumFractionDigits: 2,
+      });
+    }
+    return total.toLocaleString('pt-br', {
+      minimumFractionDigits: 2,
+    });
+  }
 
   useEffect(() => {
     function handleTotalCart() {
@@ -36,47 +83,45 @@ function Checkout() {
   }, [cartList]);
   return (
     <LayoutContainer>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          navigate('/success');
-        }}
-      >
+      <form onSubmit={handleSubmit(handleFormCheckout)}>
         <WrapperCheckout>
           <div>
             <TitleSection>Complete seu pedido</TitleSection>
-            <WrapperAddress>
-              <Disclaimer
-                title="Endereço de Entrega"
-                $subtitle="Informe o endereço onde deseja receber seu pedido"
-                icon={
-                  <MapPinLine
-                    color={defaultTheme.font.color['yellow-dark']}
-                    size={22}
-                    weight="light"
-                  />
-                }
-                $gap="0.5rem"
-                $alignItems="start"
-              />
-              <Address />
-            </WrapperAddress>
-            <WrapperPayment>
-              <Disclaimer
-                title="Pagamento    "
-                $subtitle="O pagamento é feito na entrega. Escolha a forma que deseja pagar"
-                icon={
-                  <CurrencyDollar
-                    color={defaultTheme.font.color['purple']}
-                    size={22}
-                    weight="light"
-                  />
-                }
-                $gap="0.5rem"
-                $alignItems="start"
-              />
-              <Payment />
-            </WrapperPayment>
+            <FormProvider {...newPaymentForm}>
+              <WrapperAddress>
+                <Disclaimer
+                  title="Endereço de Entrega"
+                  $subtitle="Informe o endereço onde deseja receber seu pedido"
+                  icon={
+                    <MapPinLine
+                      color={defaultTheme.font.color['yellow-dark']}
+                      size={22}
+                      weight="light"
+                    />
+                  }
+                  $gap="0.5rem"
+                  $alignItems="start"
+                />
+
+                <Address />
+              </WrapperAddress>
+              <WrapperPayment>
+                <Disclaimer
+                  title="Pagamento    "
+                  $subtitle="O pagamento é feito na entrega. Escolha a forma que deseja pagar!"
+                  icon={
+                    <CurrencyDollar
+                      color={defaultTheme.font.color['purple']}
+                      size={22}
+                      weight="light"
+                    />
+                  }
+                  $gap="0.5rem"
+                  $alignItems="start"
+                />
+                <Payment />
+              </WrapperPayment>
+            </FormProvider>
           </div>
           <div>
             <TitleSection>Cafés selecionados</TitleSection>
@@ -90,23 +135,18 @@ function Checkout() {
                   <WrapperAmount>
                     <div>
                       <p>Total de itens</p>
-                      <p>{`R$ ${sum.toLocaleString('pt-br', {
-                        minimumFractionDigits: 2,
-                      })}`}</p>
+                      <p>{`R$ ${handleToLocaleString(sum)}`}</p>
                     </div>
                     <div>
                       <p>Entrega</p>
-                      <p>{`R$ ${deliveryValue.toLocaleString('pt-br', {
-                        minimumFractionDigits: 2,
-                      })}`}</p>
+                      <p>{`R$ ${handleToLocaleString(deliveryValue)}`}</p>
                     </div>
                     <div>
                       <h3>Total</h3>
-                      <h3>
-                        {`R$ ${(sum + deliveryValue).toLocaleString('pt-br', {
-                          minimumFractionDigits: 2,
-                        })}`}
-                      </h3>
+                      <h3>{`R$ ${handleToLocaleString(
+                        sum,
+                        deliveryValue,
+                      )}`}</h3>
                     </div>
                   </WrapperAmount>
 
