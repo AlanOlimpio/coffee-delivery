@@ -9,8 +9,34 @@ import deliverySuccess from '../../assets/Success/delivery-success.png';
 import Disclaimer from '../../components/Disclaimer';
 import { CurrencyDollarSimple, MapPin, Timer } from 'phosphor-react';
 import { defaultTheme } from '../../styles/themes/default';
+import { useNavigate } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import { CoffeeContext } from '../../contexts/CoffeeContext';
+
+interface Map {
+  [key: string]: string | undefined;
+}
 
 function Success() {
+  const navigate = useNavigate();
+
+  const { detailsCheckout } = useContext(CoffeeContext);
+
+  const mapPaymentOptions: Map = {
+    '123': 'Cartão de crédito',
+    '456': 'Cartão de débito',
+    '789': 'Dinheiro',
+  };
+
+  useEffect(() => {
+    if (JSON.stringify(detailsCheckout) === '{}') {
+      navigate('/');
+    }
+  }, []);
+
+  if (JSON.stringify(detailsCheckout) === '{}') {
+    return null;
+  }
   return (
     <LayoutContainer>
       <TitleSection>Uhu! Pedido confirmado</TitleSection>
@@ -21,8 +47,14 @@ function Success() {
         <WrapperOrderInfo>
           <div>
             <Disclaimer
-              title="Entrega em Rua João Daniel Martinelli, 102"
-              $subtitle="Farrapos - Porto Alegre, RS"
+              title={`Entrega em ${detailsCheckout.address}, ${detailsCheckout.number}`}
+              $subtitle={`${detailsCheckout.downtown} - ${
+                detailsCheckout.city
+              }, ${detailsCheckout.uf.toUpperCase()} ${
+                detailsCheckout.complement
+                  ? `, ${detailsCheckout.complement}`
+                  : ``
+              }`}
               icon={
                 <MapPin
                   color={defaultTheme.font.color['white']}
@@ -46,7 +78,13 @@ function Success() {
             />
             <Disclaimer
               title="Pagamento na entrega"
-              $subtitle={<strong>Cartão de Crédito</strong>}
+              $subtitle={
+                detailsCheckout && (
+                  <strong>
+                    {mapPaymentOptions[`${detailsCheckout.payment}`]}
+                  </strong>
+                )
+              }
               icon={
                 <CurrencyDollarSimple
                   color={defaultTheme.font.color['white']}

@@ -1,3 +1,4 @@
+import { CheckoutDetails } from '../../interfaces/CheckoutDetais';
 import { ProductInterfaceProps } from '../../interfaces/Product';
 
 export enum ActionEnum {
@@ -5,6 +6,7 @@ export enum ActionEnum {
   REMOVE_ITEM_CARD = 'REMOVE_ITEM_CARD',
   UPDATE_ITEM_CARD = 'UPDATE_ITEM_CARD',
   RESET_CARD = 'RESET_CARD',
+  ADD_DETAILS_CHECKOUT = 'ADD_DETAILS_CHECKOUT',
 }
 
 export function handleAddProductCart(product: ProductInterfaceProps) {
@@ -40,5 +42,14 @@ export function handleUpdateProductCart(
 export function handleResetCard() {
   return {
     type: ActionEnum.RESET_CARD,
+  };
+}
+
+export function handleAddDetailsCheckout(data: CheckoutDetails) {
+  return {
+    type: ActionEnum.ADD_DETAILS_CHECKOUT,
+    payload: {
+      data,
+    },
   };
 }

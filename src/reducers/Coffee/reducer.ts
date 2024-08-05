@@ -1,9 +1,11 @@
+import { CheckoutDetails } from '../../interfaces/CheckoutDetais';
 import { ProductInterfaceProps } from '../../interfaces/Product';
 import { ActionEnum } from './actions';
 
 interface CoffeeState {
   coffeeList: ProductInterfaceProps[];
   cartList: ProductInterfaceProps[];
+  detailsCheckout: CheckoutDetails;
 }
 
 export function coffeeReducer(state: CoffeeState, action: any) {
@@ -58,6 +60,13 @@ export function coffeeReducer(state: CoffeeState, action: any) {
       return {
         ...state,
         cartList: [],
+      };
+    }
+
+    case ActionEnum.ADD_DETAILS_CHECKOUT: {
+      return {
+        ...state,
+        detailsCheckout: action.payload.data,
       };
     }
 

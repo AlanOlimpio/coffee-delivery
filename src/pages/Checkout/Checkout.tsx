@@ -15,7 +15,7 @@ import {
 } from './CheckoutStyled';
 import { defaultTheme } from '../../styles/themes/default';
 import Address from './components/Address';
-import Payment from './components/ Payment';
+import Payment from './components/Payment';
 import SelectedProduct from '../../components/ SelectedProduct';
 import { useNavigate } from 'react-router-dom';
 import { CoffeeContext } from '../../contexts/CoffeeContext';
@@ -39,7 +39,7 @@ export type formValidationSchemaData = zod.infer<typeof formValidationSchema>;
 
 function Checkout() {
   const navigate = useNavigate();
-  const { cartList, resetCard } = useContext(CoffeeContext);
+  const { cartList, resetCard, addDetailsCheckout } = useContext(CoffeeContext);
   const [sum, setSum] = useState(0);
   const deliveryValue = 3.5;
   const newPaymentForm = useForm<formValidationSchemaData>({
@@ -72,9 +72,10 @@ function Checkout() {
       costFreight: deliveryValue,
       cartList,
     };
-    console.log(dataTemp);
+    addDetailsCheckout(dataTemp);
     reset();
     resetCard();
+    navigate('/success');
   }
 
   function handleToLocaleString(total: number, delivery?: number) {

@@ -1,4 +1,4 @@
-import { OptionsPayment, Wrapper } from './ PaymentStyled';
+import { OptionsPayment, Wrapper } from './PaymentStyled';
 import { Bank, CreditCard, Money } from 'phosphor-react';
 import { defaultTheme } from '../../../../styles/themes/default';
 import { useFormContext } from 'react-hook-form';
