@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useReducer } from 'react';
+import { createContext, ReactNode, useEffect, useReducer } from 'react';
 import { ProductInterfaceProps } from '../interfaces/Product';
 import { productList } from '../mocks/ProductList';
 import {
@@ -41,12 +41,20 @@ export function CoffeeContextProvider({
       detailsCheckout: {},
     },
 
-    () => {
-      return {
-        coffeeList: productList,
-        cartList: [],
-        detailsCheckout: {},
-      };
+    (initialState) => {
+      const storedStateAsJSON = localStorage.getItem(
+        '@coffee-delivery:cart-state-1.0.0',
+      );
+
+      if (storedStateAsJSON) {
+        return {
+          coffeeList: productList,
+          cartList: JSON.parse(storedStateAsJSON),
+          detailsCheckout: {},
+        };
+      }
+
+      return initialState;
     },
   );
 
@@ -74,6 +82,12 @@ export function CoffeeContextProvider({
   }
 
   const { cartList, coffeeList, detailsCheckout } = CoffeeState;
+
+  useEffect(() => {
+    const stateJSON = JSON.stringify(cartList);
+
+    localStorage.setItem('@coffee-delivery:cart-state-1.0.0', stateJSON);
+  }, [cartList]);
 
   return (
     <CoffeeContext.Provider
