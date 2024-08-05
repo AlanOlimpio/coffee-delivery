@@ -11,6 +11,7 @@ import {
   WrapperAside,
   WrapperPayment,
   WrapperAmount,
+  ErrorMessage,
 } from './CheckoutStyled';
 import { defaultTheme } from '../../styles/themes/default';
 import Address from './components/Address';
@@ -30,6 +31,8 @@ const formValidationSchema = zod.object({
   complement: zod.string(),
   payment: zod.string().min(1),
   uf: zod.string().min(2).max(2),
+  amount: zod.number(),
+  itensCart: zod.number().min(1, 'Adicione itens ao carrinho!'),
 });
 
 export type formValidationSchemaData = zod.infer<typeof formValidationSchema>;
@@ -50,13 +53,26 @@ function Checkout() {
       complement: '',
       payment: '',
       uf: '',
+      amount: 0,
+      itensCart: cartList.length,
     },
   });
 
-  const { handleSubmit, reset } = newPaymentForm;
+  const {
+    handleSubmit,
+    reset,
+    register,
+    formState: { errors },
+    setValue,
+  } = newPaymentForm;
 
   function handleFormCheckout(data: formValidationSchemaData) {
-    console.log(data);
+    const dataTemp = {
+      ...data,
+      costFreight: deliveryValue,
+      cartList,
+    };
+    console.log(dataTemp);
     reset();
   }
 
@@ -72,15 +88,17 @@ function Checkout() {
   }
 
   useEffect(() => {
+    const totalCart = () =>
+      cartList.reduce(function (valueSum, product) {
+        return valueSum + product.price * product.amount;
+      }, 0);
     function handleTotalCart() {
-      setSum(
-        cartList.reduce(function (valueSum, product) {
-          return valueSum + product.price * product.amount;
-        }, 0),
-      );
+      setSum(totalCart());
     }
     handleTotalCart();
-  }, [cartList]);
+    setValue('amount', parseFloat((deliveryValue + totalCart()).toFixed(2)));
+    setValue('itensCart', cartList.length);
+  }, [cartList, setValue]);
   return (
     <LayoutContainer>
       <form onSubmit={handleSubmit(handleFormCheckout)}>
@@ -121,6 +139,7 @@ function Checkout() {
                 />
                 <Payment />
               </WrapperPayment>
+              <input required {...register('itensCart')} type="hidden" />
             </FormProvider>
           </div>
           <div>
@@ -149,24 +168,10 @@ function Checkout() {
                       )}`}</h3>
                     </div>
                   </WrapperAmount>
-
-                  <Button
-                    $gap="0.25rem"
-                    $backgroundColor="yellow"
-                    $hoverBackgroundColor="yellow-dark"
-                    $textColor="white"
-                    $paddingY="0.5rem"
-                    $paddingX="0.5rem"
-                    $textTransform="uppercase"
-                    $display="block"
-                    $weight="700"
-                  >
-                    confirmar pedido
-                  </Button>
                 </>
               ) : (
                 <Disclaimer
-                  title="Adicione itens no carrinho!"
+                  title="Não existem itens selecionados no carrinho!"
                   icon={
                     <ShoppingCart
                       color={defaultTheme.font.color['white']}
@@ -177,6 +182,22 @@ function Checkout() {
                   $backgroundColor="purple"
                 />
               )}
+              {errors.itensCart?.message && (
+                <ErrorMessage>{errors.itensCart?.message}</ErrorMessage>
+              )}
+              <Button
+                $gap="0.25rem"
+                $backgroundColor="yellow"
+                $hoverBackgroundColor="yellow-dark"
+                $textColor="white"
+                $paddingY="0.5rem"
+                $paddingX="0.5rem"
+                $textTransform="uppercase"
+                $display="block"
+                $weight="700"
+              >
+                confirmar pedido
+              </Button>
             </WrapperAside>
           </div>
         </WrapperCheckout>

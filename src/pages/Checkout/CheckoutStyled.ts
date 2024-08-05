@@ -78,3 +78,12 @@ export const WrapperAmount = styled.div`
     }
   `}
 `;
+
+export const ErrorMessage = styled.p`
+  ${({ theme }) => css`
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    color: ${theme.font.color['yellow']};
+  `}
+`;
