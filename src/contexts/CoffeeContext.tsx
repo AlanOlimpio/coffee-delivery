@@ -4,6 +4,7 @@ import { productList } from '../mocks/ProductList';
 import {
   handleAddProductCart,
   handleRemoveProductCart,
+  handleResetCard,
   handleUpdateProductCart,
 } from '../reducers/Coffee/actions';
 import { coffeeReducer } from '../reducers/Coffee/reducer';
@@ -16,6 +17,7 @@ interface CoffeeContextType {
     id: ProductInterfaceProps['id'],
     amount: ProductInterfaceProps['amount'],
   ) => void;
+  resetCard: () => void;
 }
 
 export const CoffeeContext = createContext({} as CoffeeContextType);
@@ -57,6 +59,10 @@ export function CoffeeContextProvider({
     dispatch(handleUpdateProductCart(id, amount));
   }
 
+  function resetCard() {
+    dispatch(handleResetCard());
+  }
+
   const { cartList, coffeeList } = CoffeeState;
 
   return (
@@ -67,6 +73,7 @@ export function CoffeeContextProvider({
         addProductCart,
         removeProductCart,
         updateProductCart,
+        resetCard,
       }}
     >
       {children}

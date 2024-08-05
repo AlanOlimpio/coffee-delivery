@@ -4,6 +4,7 @@ export enum ActionEnum {
   ADD_ITEM_CARD = 'ADD_ITEM_CARD',
   REMOVE_ITEM_CARD = 'REMOVE_ITEM_CARD',
   UPDATE_ITEM_CARD = 'UPDATE_ITEM_CARD',
+  RESET_CARD = 'RESET_CARD',
 }
 
 export function handleAddProductCart(product: ProductInterfaceProps) {
@@ -33,5 +34,11 @@ export function handleUpdateProductCart(
       id,
       amount,
     },
+  };
+}
+
+export function handleResetCard() {
+  return {
+    type: ActionEnum.RESET_CARD,
   };
 }

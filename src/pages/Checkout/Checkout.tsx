@@ -39,7 +39,7 @@ export type formValidationSchemaData = zod.infer<typeof formValidationSchema>;
 
 function Checkout() {
   const navigate = useNavigate();
-  const { cartList } = useContext(CoffeeContext);
+  const { cartList, resetCard } = useContext(CoffeeContext);
   const [sum, setSum] = useState(0);
   const deliveryValue = 3.5;
   const newPaymentForm = useForm<formValidationSchemaData>({
@@ -74,6 +74,7 @@ function Checkout() {
     };
     console.log(dataTemp);
     reset();
+    resetCard();
   }
 
   function handleToLocaleString(total: number, delivery?: number) {

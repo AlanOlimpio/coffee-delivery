@@ -54,6 +54,13 @@ export function coffeeReducer(state: CoffeeState, action: any) {
       };
     }
 
+    case ActionEnum.RESET_CARD: {
+      return {
+        ...state,
+        cartList: [],
+      };
+    }
+
     default:
       return state;
   }
