@@ -36,7 +36,7 @@ export function CoffeeContextProvider({
   const [CoffeeState, dispatch] = useReducer(
     coffeeReducer,
     {
-      coffeeList: [],
+      coffeeList: productList,
       cartList: [],
       detailsCheckout: {},
     },
