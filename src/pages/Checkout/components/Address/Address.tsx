@@ -5,12 +5,30 @@ import {
   TwoCol,
   Wrapper,
 } from './AddressStyled';
+import { useEffect } from 'react';
 
 function Address() {
   const {
     register,
     formState: { errors },
+    watch,
+    setValue,
   } = useFormContext();
+
+  const normalizeCepNumber = (value: string | undefined) => {
+    if (!value) return '';
+    return value
+      .replace(/\D/g, '')
+      .replace(/^(\d{5})(\d{3})+?$/, '$1-$2')
+      .replace(/(-\d{3})(\d+?)/, '$1');
+  };
+
+  const cepValue = watch('cep');
+
+  useEffect(() => {
+    setValue('cep', normalizeCepNumber(cepValue));
+  }, [cepValue]);
+
   return (
     <Wrapper>
       <TwoCol>
